@@ -6,23 +6,23 @@ import fetch from 'node-fetch';
 let limit = 500;
 let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) => {
   let chat = global.db.data.chats[m.chat];
-  if (!args || !args[0]) throw `✳️ Example:\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`;
-  if (!args[0].match(/youtu/gi)) throw `❎ Verify that the YouTube link`;
+  if (!args || !args[0]) throw `✳️ مثال:\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`;
+  if (!args[0].match(/youtu/gi)) throw `❎ تاكد انه رابط يوتيوب`;
   
 
   var ggapi = `https://vihangayt.me/download/ytmp4?url=${encodeURIComponent(args)}`
 
   const response = await fetch(ggapi);
   if (!response.ok) {
-      console.log('Error searching for song:', response.statusText);
-      throw 'Error searching for song';
+      console.log('خطأ في البحث:', response.statusText);
+      throw 'خطأ في البحث';
   }
   const data = await response.json();
 
   const caption = `✼ ••๑⋯❀ Y O U T U B E ❀⋯⋅๑•• ✼
 	  
-  ❏ Title: ${data.data.title}
-  ❒ Link: ${args[0]}
+  ❏ العنوان: ${data.data.title}
+  ❒ الرابط: ${args[0]}
   ⊱─━⊱༻●༺⊰━─⊰`
  let vres = data.data.vid_360p
 
@@ -43,7 +43,7 @@ let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) =
 
 handler.help = ['ytmp4 <yt-link>'];
 handler.tags = ['downloader'];
-handler.command = ['ytmp4', 'video', 'ytv'];
+handler.command = ['ytmp4', 'يوت2', 'ytv'];
 handler.diamond = false;
 
 export default handler;
