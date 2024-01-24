@@ -4,27 +4,27 @@ let handler = async (m, { conn, text }) => {
   let who
   if (m.isGroup) who = m.mentionedJid[0]
   else who = m.chat
-  if (!who) throw '✳️ Tag the user'
+  if (!who) throw '✳️ اشر للمستخدم'
   let txt = text.replace('@' + who.split`@`[0], '').trim()
-  if (!txt) throw '✳️ Enter the amount of *XP* you want to add'
-  if (isNaN(txt)) throw ' 🔢 only numbers'
+  if (!txt) throw '✳️ ادخل كمية الخبرة التي تريد اضافتها'
+  if (isNaN(txt)) throw ' 🔢 الاعضاء فقط'
   let xp = parseInt(txt)
   let exp = xp
   
-  if (exp < 1) throw '✳️ Mínimum *1*'
+  if (exp < 1) throw '✳️ الحد الادنى *1*'
   let users = global.db.data.users
   users[who].exp += xp
 
-  await m.reply(`≡ *XP ADDED*
+  await m.reply(`≡ *اضافة خبرة*
 ┌──────────────
-▢  *Total:* ${xp}
+▢  *المجموع:* ${xp}
 └──────────────`)
- conn.fakeReply(m.chat, `▢ Did you recieve \n\n *+${xp} XP*`, who, m.text)
+ conn.fakeReply(m.chat, `▢ هل تلقيت \n\n *+${xp} XP*`, who, m.text)
 }
 
 handler.help = ['addxp <@user>']
 handler.tags = ['economy']
-handler.command = ['addxp'] 
+handler.command = ['اضف2'] 
 handler.rowner = true
 
 export default handler
