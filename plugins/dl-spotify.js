@@ -2,8 +2,8 @@ import fetch from 'node-fetch';
 import displayLoadingScreen from '../lib/loading.js';
 let handler = async (m, { conn, text }) => {
     if (!text) {
-        console.log('No song name provided.');
-        throw `*Please enter a song name*`;
+        console.log('لم يتم تقديم اسم الأغنية.');
+        throw `*ادخل اسم الاغنية*`;
     }
   m.react('🎶')
   await displayLoadingScreen(conn, m.chat);
@@ -37,6 +37,6 @@ let handler = async (m, { conn, text }) => {
 }
 handler.help = ['spotify'];
 handler.tags = ['downloader'];
-handler.command = /^(spotify|song)$/i;
+handler.command = /^(spotify|سبوت)$/i;
 
 export default handler;
