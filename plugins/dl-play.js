@@ -98,7 +98,7 @@ handler.before = async (m, {
 
         
     } else {
-        m.reply("Invalid sequence number. Please select the appropriate number from the list above.\nBetween 1 to " + result.allLinks.length);
+        m.reply("خطأ عليك الاختيار بين لارقام التي فل قائمة.\n بين 1" + result.allLinks.length);
     }
 };
 
@@ -120,7 +120,7 @@ function formatBytes(bytes, decimals = 2) {
 async function searchAndDownloadMusic(query) {
     try {
         const { videos } = await yts(query);
-        if (!videos.length) return "Sorry, no video results were found for this search.";
+        if (!videos.length) return "عذرا لا يوجد فديو.";
 
         const allLinks = videos.map(video => ({
             title: video.title,
