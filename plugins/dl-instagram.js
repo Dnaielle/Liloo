@@ -1,20 +1,20 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, usedPrefix, args, command, text }) => {
-  if (!text) throw `You need to give the URL of Any Instagram video, post, reel, image`;
+  if (!text) throw `ضع رابط صورة فديو ريلز للتحميل`;
   m.reply(wait);
 
   let res;
   try {
     res = await fetch(`${gurubot}/igdlv1?url=${text}`);
   } catch (error) {
-    throw `An error occurred: ${error.message}`;
+    throw `حدث خطا: ${error.message}`;
   }
 
   let api_response = await res.json();
 
   if (!api_response || !api_response.data) {
-    throw `No video or image found or Invalid response from API.`;
+    throw ` تأكد من الرابط لم اعثر على شيء.`;
   }
 
   const mediaArray = api_response.data;
@@ -23,7 +23,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     const mediaType = mediaData.type;
     const mediaURL = mediaData.url_download;
 
-    let cap = `HERE IS THE ${mediaType.toUpperCase()} >,<`;
+    let cap = `هاهو مقطعك ${mediaType.toUpperCase()} >,<`;
 
     if (mediaType === 'video') {
       
@@ -37,7 +37,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
 
 handler.help = ['instagram'];
 handler.tags = ['downloader'];
-handler.command = /^(instagram|igdl|ig|insta)$/i;
+handler.command = /^(انستا|ig|insta)$/i;
 
 export default handler;
 
