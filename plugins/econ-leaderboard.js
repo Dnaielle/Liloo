@@ -9,7 +9,7 @@ let handler = async (m, { conn, args, usedPrefix, participants }) => {
   });
   let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
   let user = global.db.data.users[who];
-  if (!(who in global.db.data.users)) throw '✳️ The user is not found in my database';
+  if (!(who in global.db.data.users)) throw '✳️ المستخدم ليس في قاعدة بياناتي';
   let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './Guru.jpg');
   let about = (await conn.fetchStatus(who).catch(console.error))?.status || '';
   let { name, exp, credit, lastclaim, registered, regTime, age, level, role, warn } = global.db.data.users[who];
@@ -41,20 +41,20 @@ let handler = async (m, { conn, args, usedPrefix, participants }) => {
 
   let len = args[0] && args[0].length > 0 ? Math.min(50, Math.max(parseInt(args[0]), 5)) : Math.min(10, sortedExp.length);
   let text = `
-👑 *GLOBAL LEADERBOARD* 👑
+👑 *التصنيف العالمي* 👑
 
 ${sortedExp.slice(0, len).map(({ jid, exp, credit, level, bank, role }, i) => {
   let totalgold = users.find(u => u.jid === jid).credit + users.find(u => u.jid === jid).bank;
   let user = global.db.data.users[jid];
   let username = user.name;
   return `*#${i + 1}.*
-*👑 Username:* ${username}
-*🌟 Experience:* ${exp}
-*🏆 Rank:* ${role}
-*✨ Level:* ${level}
-*👛 Wallet:* ${credit}
-*🏦 Bank:* ${bank}
-*💰 Gold:* ${totalgold}`;
+*👑 اسم المستخدم:* ${username}
+*🌟 الخبرة:* ${exp}
+*🏆 التصنيف:* ${role}
+*✨ المستوى:* ${level}
+*👛 المحفظة:* ${credit}
+*🏦 البنك:* ${bank}
+*💰 الذهب:* ${totalgold}`;
 }).join('\n\n\n')}
 *You are at ${usersExp.indexOf(m.sender) + 1} out of total ${usersExp.length} members*`
 .trim();
@@ -66,7 +66,7 @@ ${sortedExp.slice(0, len).map(({ jid, exp, credit, level, bank, role }, i) => {
 
 handler.help = ['leaderboard'];
 handler.tags = ['core'];
-handler.command = ['leaderboard', 'lb'];
+handler.command = ['تصنيف', 'lb'];
 
 export default handler;
 
