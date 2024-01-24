@@ -6,6 +6,8 @@ let taguser = '@' + m.sender.split("@s.whatsapp.net")[0]
 let av = `./Assets/mp3/${pickRandom(["Guru", "Guru1", "Guru2", "Guru3", "Guru4"])}.mp3`
 
 m.reply( `اهلا ${taguser} تحتاج مساعدة؟ ?  اكتب.اوامر`)
+const { key } = await conn.sendMessage(m.chat, {
+      image: { url: 'https://telegra.ph/file/82170143cb8080a4a9b91.jpg' }, 
 conn.sendFile(m.chat, av, 'audio.mp3', null, m, true, { type: 'audioMessage', ptt: true })
 } 
 
