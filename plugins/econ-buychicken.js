@@ -4,17 +4,17 @@ let handler = async (m, { conn, command, args, usedPrefix }) => {
 
    
     
-    if (user.chicken > 0) return m.reply('You already have this')
-    if (user.credit < 500) return m.reply(`🟥 *You don't have sufficient amount of gold in your wallet to buy a chicken*`)
+    if (user.chicken > 0) return m.reply('انت بالفعل لديك دحاجة')
+    if (user.credit < 500) return m.reply(`🟥 *ليس لديك ذهب كافي لشراء دجاجة*`)
 
     user.credit -= 1000
     user.chicken += 1
-    m.reply(`🎉 You have successfully bought a chicken to fight! Use the command ${usedPrefix}cock-fight <amount>`)
+    m.reply(`🎉 لقد اشتريت دجاجة استخدم الامر ${usedPrefix}حارب للقتال)
 }
 
 handler.help = ['buych']
 handler.tags = ['economy']
-handler.command = ['buy-chicken', 'buych'] 
+handler.command = ['شراء-دجاجة', 'buych'] 
 
 handler.group = true
 
