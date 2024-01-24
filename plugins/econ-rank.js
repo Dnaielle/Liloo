@@ -32,7 +32,7 @@ let handler = async (m, { conn }) => {
   .renderEmojis(true)
   .build();
 
-  const str = `🏮 *Username:* ${username}\n\n⭐ *Experience:* ${crxp} / ${requiredXpToLevelUp}\n\n🏅 *Rank:* *${role}*`
+  const str = `🏮 *اسم المستخدم:* ${username}\n\n⭐ *الخبرة:* ${crxp} / ${requiredXpToLevelUp}\n\n🏅 *الرتبة:* *${role}*`
 
   try {
     conn.sendFile(m.chat, card, 'rank.jpg', str, m, false, { mentions: [who] });
@@ -43,6 +43,6 @@ let handler = async (m, { conn }) => {
 
 handler.help = ['rank'];
 handler.tags = ['economy'];
-handler.command = ['rank'];
+handler.command = ['رانك'];
 
 export default handler;
