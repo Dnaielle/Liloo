@@ -7,7 +7,7 @@ let quranSurahHandler = async (m, { conn }) => {
     let surahInput = m.text.split(' ')[1];
 
     if (!surahInput) {
-      throw new Error(`Please specify the surah number or name`);
+      throw new Error(`رجاء ادخل رقم السوره و الاية التي تبحث عنها`);
     }
 
     let surahListRes = await fetch('https://quran-endpoint.vercel.app/quran');
@@ -20,7 +20,7 @@ let quranSurahHandler = async (m, { conn }) => {
     );
 
     if (!surahData) {
-      throw new Error(`Couldn't find surah with number or name "${surahInput}"`);
+      throw new Error(`لم استكع العثور تاكد من لاسم او الرقم "${surahInput}"`);
     }
 
     let res = await fetch(`https://quran-endpoint.vercel.app/quran/${surahData.number}`);
@@ -39,11 +39,11 @@ let quranSurahHandler = async (m, { conn }) => {
     let translatedTafsirEnglish = await translate(json.data.tafsir.id, { to: 'en', autoCorrect: true });
 
     let quranSurah = `
-🕌 *Quran: The Holy Book*\n
-📜 *Surah ${json.data.number}: ${json.data.asma.ar.long} (${json.data.asma.en.long})*\n
-Type: ${json.data.type.en}\n
-Number of verses: ${json.data.ayahCount}\n
-🔮 *Explanation (Urdu):*\n
+🕌 *القرآن الركيم*\n
+📜 *السوره ${json.data.number}: ${json.data.asma.ar.long} (${json.data.asma.en.long})*\n
+النوع: ${json.data.type.en}\n
+الرقم: ${json.data.ayahCount}\n
+🔮 * (Urdu):*\n
 ${translatedTafsirUrdu.text}\n
 🔮 *Explanation (English):*\n
 ${translatedTafsirEnglish.text}`;
@@ -61,7 +61,7 @@ ${translatedTafsirEnglish.text}`;
 
 quranSurahHandler.help = ['quran [surah_number|surah_name]'];
 quranSurahHandler.tags = ['quran', 'surah'];
-quranSurahHandler.command = ['quran', 'surah']
+quranSurahHandler.command = ['قران-بحث', 'surah']
 
 export default quranSurahHandler;
 
