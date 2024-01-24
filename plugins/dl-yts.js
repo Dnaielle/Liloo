@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let handler = async (m, { conn, text }) => {
-  if (!text) throw '✳️ What do you want me to search for on YouTube?';
+  if (!text) throw '✳️ ماذا تريد البحث عليه في اليوتيوب?';
 
   try {
     const query = encodeURIComponent(text);
@@ -9,29 +9,29 @@ let handler = async (m, { conn, text }) => {
     const results = response.data;
 
     if (results.length === 0) {
-      throw 'No results found for the given query.';
+      throw 'لم استطع ايجاد شيء.';
     }
 
     const firstResult = results[0];
 
     const message = `
 乂 ${firstResult.title}
-乂 *Link* : ${firstResult.url}
-乂 *Duration* : ${firstResult.timestamp}
-乂 *Published :* ${firstResult.ago}
-乂 *Views:* ${firstResult.views}
+乂 *الرابط* : ${firstResult.url}
+乂 *الوصف* : ${firstResult.timestamp}
+乂 *تم نشره :* ${firstResult.ago}
+乂 *مشاهدات:* ${firstResult.views}
 
     `;
 
     conn.sendFile(m.chat, firstResult.thumbnail, 'yts.jpeg', message, m);
   } catch (error) {
     console.error(error);
-    throw 'An error occurred while searching for YouTube videos.';
+    throw 'خطأ في البحث عن المقطع.';
   }
 };
 
 handler.help = ['ytsearch'];
 handler.tags = ['downloader'];
-handler.command = ['ytsearch', 'yts'];
+handler.command = ['بحث', 'yts'];
 
 export default handler;
