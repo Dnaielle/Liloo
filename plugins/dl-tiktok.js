@@ -31,6 +31,6 @@ if (!args[0] && !m.quoted) throw `قم بأرسال رابط مقطع تيك ت�
 
 handler.help = ['tiktok'].map((v) => v + ' <url>');
 handler.tags = ['downloader'];
-handler.command = /^t(تيك)$/i;
+handler.command = /^(تيك)$/i;
 
 export default handler;
