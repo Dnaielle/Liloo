@@ -10,161 +10,55 @@ import {
    } from "../lib/levelling.js"
    import moment from "moment-timezone"
    import os from "os"
-
-  
-   let groupmenu = `
-   ✦ ───『 *group* 』─── ⚝
-  ◈ .getbio <@tag/reply>  Ⓛ
-  ◈ .animequote
-  ◈ .Setdesc <text>
-  ◈ .setname <text>
-  ◈ .add
-  ◈ .delete
-  ◈ .delwarn @user
-  ◈ .demote (@tag)
-  ◈ .infogp
-  ◈ .hidetag
-  ◈ .invite <917xxx>
-  ◈ .kick @user
-  ◈ .link
-  ◈ .poll question|option|option
-  ◈ .profile
-  ◈ .promote
-  ◈ .resetlink
-  ◈ .setbye <text>
-  ◈ .group *open/close*
-  ◈ .setwelcome <text>
-  ◈ .simulate <event> @user
-  ◈ .staff
-  ◈ .tagall
-  ◈ .totag
-  ◈ .warn @user
-  ◈ .warns
-  ◈ .main
-  ╰──────────⳹`
-  
-  let ownermenu = `
-  ✦ ───『 *owner* 』─── ⚝
-  ◈ .addprem <@tag>
-  ◈ .addowner @user
-  ◈ .allow <@tag>
-  ◈ .HEROKU
-  ◈ .ban @user
-  ◈ .banchat
-  ◈ .tx
-  ◈ .broadcastgroup <text>
-  ◈ .bcgc <text>
-  ◈ .cleartmp
-  ◈ .delexpired
-  ◈ .delprem @user
-  ◈ .removeowner @user
-  ◈ .setppbotfull
-  ◈ .getplugin <name file>
-  ◈ .getfile <name file>
-  ◈ .join <chat.whatsapp.com> <dias>
-  ◈ .reset <54xxx>
-  ◈ .resetprefix
-  ◈ .restart
-  ◈ ..setprefix
-  ◈ ..setprefix [symbol]
-  ◈ .unban @user
-  ◈ .unbanchat
-  ◈ .update
-  ◈ .config
-  ◈ .listban
-  ◈ .deleteplugin <name>
-  ╰──────────⳹`
   
   let funmenu = `
-  ✦ ───『 *fun* 』─── ⚝
-  ◈ .afk <reason>
-  ◈ .tomp3
-  ◈ .toav
-  ◈ .bot
-  ◈ .character @tag
-  ◈ .dare
-  ◈ .flirt
-  ◈ .gay @user
-  ◈ .pickupline
-  ◈ .question
-  ◈ .shayari
-  ◈ .ship
-  ◈ .yomamajoke
-  ◈ .truth
-  ◈ .waste @user
-  ◈ .image
-  ◈ .meme
-  ◈ .quote
-  ╰──────────⳹`
-  
-  let reactmenu = `
-  ✦ ───『 *reaction* 』─── ⚝
-  ◈ .bully @tag
-  ◈ .cuddle @tag
-  ◈ .cry @tag
-  ◈ .hug @tag
-  ◈ .awoo @tag
-  ◈ .kiss @tag
-  ◈ .lick @tag
-  ◈ .pat @tag
-  ◈ .smug @tag
-  ◈ .bonk @tag
-  ◈ .yeet @tag
-  ◈ .blush @tag
-  ◈ .smile @tag
-  ◈ .wave @tag
-  ◈ .highfive @tag
-  ◈ .handhold @tag
-  ◈ .nom @tag
-  ◈ .bite @tag
-  ◈ .glomp @tag
-  ◈ .slap @tag
-  ◈ .kill @tag
-  ◈ .happy @tag
-  ◈ .wink @tag
-  ◈ .poke @tag
-  ◈ .dance @tag
-  ◈ .cringe @tag
+  ✦ ───『 *المرح* 』─── ⚝
+  ◈ .كت
+  ◈ .خمن
+  ◈ .ايموجي
+  ◈ .عين
+  ◈ .علم
+  ◈ .رتب
+  ◈ .احزر
+  ◈ .دين
   ╰──────────⳹`
   
   let dlmenu = `
-  ✦ ───『 *downloader* 』─── ⚝
-  ◈ .facebook <url>
+  ✦ ───『 *التحميلات* 』─── ⚝
+  ◈ .فيس <url>
   ◈ .gdrive 🅟
   ◈ .gitclone <url>
-  ◈ .igstalk
-  ◈ .instagram
+  ◈ .تجسس 
+  ◈ .انستا
   ◈ .mediafire <url>
   ◈ .mega
   ◈ .modapk
-  ◈ .play <query>
-  ◈ .play2 <text>
-  ◈ .playvid <text>
-  ◈ .spotify
-  ◈ .tiktok <url>
-  ◈ .tiktokstalk
-  ◈ .twitter <url>
-  ◈ .ytmp3 <url>
-  ◈ .ytsearch
-  ◈ .ytmp4 <yt-link>
-  ◈ .wallpaper <query>
+  ◈ .play <بل اسم>
+  ◈ .play2 <بل اسم>
+  ◈ .play3 <فديو بل اسم>
+  ◈ .سبوت
+  ◈ .تيك <url>
+  ◈ .تويت <url>
+  ◈ .يوت <url>
+  ◈ .بحث
+  ◈ .يوت2 <yt-link>
+  ◈ .خلفية <query>
   ╰──────────⳹`
   
   let gamemenu = `
-  ✦ ───『 *game* 』─── ⚝
-  ◈ .slot <amount>
-  ◈ .chess [from to]
-  ◈ .chess delete
-  ◈ .chess join
-  ◈ .chess start
-  ◈ .delttt
-  ◈ .guessflag
-  ◈ .Maths <modes>
-  ◈ .ppt <rock/paper/scissors>
-  ◈ .tictactoe <tag number>
+  ✦ ───『 *العاب* 』─── ⚝
+  ◈ .رهان <amount>
+  ◈ .رهان3 [from to]
+  ◈ .شطرنج delete
+  ◈ .رهان4 
+  ◈ .رول
+  ◈ .رياضيات
+  ◈ .حجر/ورق/مقص تحدي
+  ◈ .ا حجر ورق مقص مع البوت 
+  ◈ . اكس او
   ╰──────────⳹`
   let logomenu = `
-  ✦ ───『 *maker* 』─── ⚝
+  ✦ ───『 *الصانع* 』─── ⚝
   ◈ .blur
   ◈ .difuminar2
   ◈ .hornycard
@@ -191,76 +85,37 @@ import {
   ╰──────────⳹`
   
   let stickermenu = `
-  ✦ ───『 *sticker* 』─── ⚝
-  ◈ .emojimix <emoji+emoji>
-  ◈ .getsticker
-  ◈ .smaker
-  ◈ .stickerwithmeme (caption|reply media)
-  ◈ .swmeme <url>
-  ◈ .swm(caption|reply media)
-  ◈ .sfull
-  ◈ .toimg <sticker>
-  ◈ .tovid
-  ◈ .trigger <@user>
-  ◈ .ttp
-  ◈ .ttp2
-  ◈ .ttp3
-  ◈ .ttp4
-  ◈ .ttp5
-  ◈ .attp
-  ◈ .attp2
-  ◈ .attp3
-  ◈ .take <name>|<author>
+  ✦ ───『 *ملصق* 』─── ⚝
+  ◈ .سرقه/حقوق
+  ◈ .لصوره
+  ◈ .لفيديو
+  ◈ .ملصق
+  ◈ دائري ملصق2
+  ◈ .قص الخلفية ملصق3
   ╰──────────⳹`
+
   
-  let audiomenu = `
-  ✦ ───『 *audio* 』─── ⚝
-  ◈ .bass [vn]
-  ◈ .blown [vn]
-  ◈ .deep [vn]
-  ◈ .earrape [vn]
-  ◈ .fast [vn]
-  ◈ .fat [vn]
-  ◈ .nightcore [vn]
-  ◈ .reverse [vn]
-  ◈ .robot [vn]
-  ◈ .slow [vn]
-  ◈ .smooth [vn]
-  ◈ .tupai [vn]
-  ╰──────────⳹`
-  
-  
-  let newsmenu = `
-  ✦ ───『 *news* 』─── ⚝
-  ◈ .news
-  ◈ .technews
-  ◈ .ndtv
-  ╰──────────⳹
-  `
   let economy = `
-  ✦ ───『 *economy* 』─── ⚝
-  ◈ .addgold <@user>
-  ◈ .addxp <@user>
-  ◈ .bank
+  ✦ ───『 *الموارد* 』─── ⚝
+  ◈ .اضف ذهب <@user>
+  ◈ .اضف خبرة <@user>
+  ◈ .البنك
   ◈ .buych
-  ◈ .cock-fight <amount>
-  ◈ .buy
-  ◈ .buyall
-  ◈ .daily
-  ◈ .deposit
+  ◈ .حارب
+  ◈ .شراء
+  ◈ .شراء-الكل
+  ◈ .يومي
+  ◈ .نقل
   ◈ .gamble <amount> <color(red/black)>
-  ◈ .give credit [amount] [@tag]
-  ◈ .levelup
-  ◈ .rank
-  ◈ .rob
-  ◈ .roulette <amount> <color(red/black)>
-  ◈ .wallet
-  ◈ .withdraw
-  ◈ .work
+  ◈ .لفل
+  ◈ .رانك
+  ◈ .سرقة
+  ◈ .المحفظة
+  ◈ .عمل
   ╰──────────⳹`
   let animemenu = `
-  ✦ ───『 *anime* 』─── ⚝
-  ◈ .anime
+  ✦ ───『 *انمي* 』─── ⚝
+  ◈ .انمي
   ◈ .akira
   ◈ .akiyama
   ◈ .anna
@@ -304,178 +159,48 @@ import {
   ◈ .trace
   ╰──────────⳹
   `
-  let nsfwmenu = `
-  ✦ ───『 *nsfw* 』─── ⚝
-  ◈ .genshin
-  ◈ .swimsuit
-  ◈ .schoolswimsuit
-  ◈ .white
-  ◈ .barefoot
-  ◈ .touhou
-  ◈ .gamecg
-  ◈ .hololive
-  ◈ .uncensored
-  ◈ .sunglasses
-  ◈ .glasses
-  ◈ .weapon
-  ◈ .shirtlift
-  ◈ .chain
-  ◈ .fingering
-  ◈ .flatchest
-  ◈ .torncloth
-  ◈ .bondage
-  ◈ .demon
-  ◈ .wet
-  ◈ .pantypull
-  ◈ .headdress
-  ◈ .headphone
-  ◈ .tie
-  ◈ .anusview
-  ◈ .shorts
-  ◈ .stokings
-  ◈ .topless
-  ◈ .beach
-  ◈ .bunnygirl
-  ◈ .bunnyear
-  ◈ .idol
-  ◈ .vampire
-  ◈ .gun
-  ◈ .maid
-  ◈ .bra
-  ◈ .nobra
-  ◈ .bikini
-  ◈ .whitehair
-  ◈ .blonde
-  ◈ .pinkhair
-  ◈ .bed
-  ◈ .ponytail
-  ◈ .nude
-  ◈ .dress
-  ◈ .underwear
-  ◈ .foxgirl
-  ◈ .uniform
-  ◈ .skirt
-  ◈ .sex
-  ◈ .sex2
-  ◈ .sex3
-  ◈ .breast
-  ◈ .twintail
-  ◈ .spreadpussy
-  ◈ .tears
-  ◈ .seethrough
-  ◈ .breasthold
-  ◈ .drunk
-  ◈ .fateseries
-  ◈ .spreadlegs
-  ◈ .openshirt
-  ◈ .headband
-  ◈ .food
-  ◈ .close
-  ◈ .tree
-  ◈ .nipples
-  ◈ .erectnipples
-  ◈ .horns
-  ◈ .greenhair
-  ◈ .wolfgirl
-  ◈ .catgirl
-  ◈ .nsfw
-  ◈ .ass
-  ◈ .boobs
-  ◈ .lesbian
-  ◈ .pussy
-  ◈ .pack
-  ◈ .xvid
-  ◈ .xnxx
-  ╰──────────⳹`
   
   let toolsmenu = `
-  ✦ ───『 *tools* 』─── ⚝
+  ✦ ───『 *ادوات* 』─── ⚝
   ◈ .nowa
   ◈ .qr <text>
   ◈ .qrcode <text>
   ◈ .style <key> <text>
-  ◈ .weather *<place>*
-  ◈ .dehaze
-  ◈ .recolor
+  ◈ .الطقس *<place>*
   ◈ .hdr
-  ◈ .length <amount>
-  ◈ .tinyurl <link>
-  ◈ .shorten <link>
-  ◈ .tempmail
-  ◈ .shazam
-  ◈ .cal <equation>
-  ◈ .carbon <code>
-  ◈ .define <word>
-  ◈ .element
-  ◈ .google
-  ◈ .itunes
-  ◈ .lyrics
-  ◈ .imdb
-  ◈ .course
-  ◈ .randomcourse
-  ◈ .readmore <text1>|<text2>
-  ◈ .readvo
-  ◈ .removebg
-  ◈ .ss <url>
-  ◈ .ssf <url>
-  ◈ .subreddit
-  ◈ .telesticker  Ⓛ
-  ◈ .tourl
-  ◈ .translate <lang> <text>
-  ◈ .true
-  ◈ .tts <lang> <task>
+  ◈ .عنصر
+  ◈ .غوغل
   ◈ .wa
-  ◈ .wikipedia
+  ◈ .ويكي
   ╰──────────⳹`
   
   let Aimenu = `
-  ✦ ───『 *AI* 』─── ⚝
-  ◈ .bing
-  ◈ .dalle
-  ◈ .chatgpt
-  ◈ .toanime
-  ◈ .gitagpt
-  ◈ .tocartoon
+  ✦ ───『 *ذكاء اصتناعي* 』─── ⚝
+  ◈ .ناكسو
+  ◈ .هارو
+  ◈ .لانمي
+  ◈ .لكارتون
   ◈ .ai
   ◈ .bard
   ◈ .alexa
   ◈ .bingimg
-  ◈ .gemini
   ╰──────────⳹
   `
-  let religionmenu = `
-  ✦ ───『 *religion* 』─── ⚝
-  ◈ .gita [verse_number]
-  ◈ .quran [surah_number|surah_name]
-  ╰──────────⳹`
   
   let botmenu = `
-  ✦ ───『 *Bot Menu* 』─── ⚝
-  ◈ .ping
-  ◈ .runtime
-  ◈ .script
-  ◈ .server
-  ◈ .blocklist
+  ✦ ───『 *اوامر اخرى* 』─── ⚝
+  ◈ .بينغ
+  ◈ .العمل
+  ◈ .سيرفر
   ◈ .alive
   ◈ .info
-  ◈ .owner
-  ◈ .totalfeature
-  ◈ .list
-  ◈ .messi
-  ◈ .cristianoronaldo
-  ◈ .cr7
-  ◈ .ppcouple
-  ◈ .ppcp
-  ◈ .pinterest
-  ◈ .reg <name.age>
-  ◈ .mysn
-  ◈ .unreg 
-  ╰──────────⳹
-  `
-  let pluginmenu = `
-  ✦ ───『 *plugin* 』─── ⚝
-  ◈ .plugins
-  ◈ .install <Gist URL>
+  ◈ .المطور
+  ◈ .القائمة
+  ◈ .ميسي
+  ◈ .رونالدو
+  ◈ .تقطيم
+  ◈ .طقمي
+  ◈ .طقم2
   ╰──────────⳹
   `
 
@@ -537,58 +262,30 @@ import {
     global.fcontact = { key: { fromMe: false, participant: `0@s.whatsapp.net`, remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
     const infoText = `
     ${botname} あ⁩ 」\n
-    Hii ${name} Senpai
+    اهلاا ${name} سينباي
     
     *${ucpn}* 
    
-    乂───『 *U S E R*』───乂
-    ⛥ *Name:* ${name}
-    ⛥ *Gold:* ${credit}
-    ⛥ *Role:* ${role}
-    ⛥ *Level:* ${level}
-    ⛥ *Xp:* ${exp}
+    乂───『 *معلومات المستخدم』───乂
+    ⛥ *الاسم:* ${name}
+    ⛥ *الذهب:* ${credit}
+    ⛥ *الرتبة:* ${role}
+    ⛥ *المستوى:* ${level}
+    ⛥ *الخبرة:* ${exp}
     ╰──────────⳹
    
-    乂───『 *I N F O*』───乂
-    ⛥ *Bot Name:* ${botname}
-    ⛥ *Mode:* ${mode}
-    ⛥ *Platform:* ${platform}
-    ⛥ *Type:* NodeJs
-    ⛥ *Baileys:* Multi Device
-    ⛥ *Prefix:* [ *${usedPrefix}* ]
-    ⛥ *Uptime:* ${muptime}
-    ⛥ *Database:*  ${totalreg}
+    乂───『 *معلومات البوت*』───乂
+    ⛥ *اسم البوت:* ${botname}
+    ⛥ *الوضع:* ${mode}
+    ⛥ *منصة التشغيل:* ${platform}
+    ⛥ *النوع:* NodeJs
+    ⛥ *وقت التشغيل:* ${muptime}
+    ⛥ *البيانات:*  ${totalreg}
     ╰──────────⳹
     
     乂───『 *I N F O  C M D*』───乂 
-    │ *${totalfeatures}* Commands
+    │ *${totalfeatures}* الاوامر
     ╰──────────⳹
-     ${readMore}
-
-    乂───『 *INFO*』───乂 
-  │*Reply with the number*
-  │ to get respected Menu*
-  ╰───────⳹
-  ╭───────⳹
-  │ *1.* Bot Menu
-  │ *2.* Owner Menu
-  │ *3.* Group Menu
-  │ *4.* Fun Menu
-  │ *5.* Reaction Menu
-  │ *6.* Downloader Menu
-  │ *7.* Game Menu
-  │ *8.* Logo Menu
-  │ *9.* Sticker Menu
-  │ *10.* Audio Menu
-  │ *11.* News Menu
-  │ *12.* Economy Menu
-  │ *13.* Anime Menu
-  │ *14.* NSFW Menu
-  │ *15.* Tools Menu
-  │ *16.* AI Menu
-  │ *17.* Religion Menu
-  │ *18.* Plugin Menu
-  ╰───────⳹
  ${readMore}` 
 ;
 
@@ -730,19 +427,19 @@ import {
    }
    
    function ucapan() {
-    const time = moment.tz("Asia/Kolkata").format("HH")
-    let res = "Good morning ☀️"
+    const time = moment.tz("Asia/Damascus").format("HH")
+    let res = "صباح الخير ☀️"
     if (time >= 4) {
-     res = "Good Morning 🌄"
+     res = "صباح الخير 🌄"
     }
     if (time >= 10) {
-     res = "Good Afternoon ☀️"
+     res = " نهارك سعيد☀️"
     }
     if (time >= 15) {
-     res = "Good Afternoon 🌇"
+     res = "غروب جميل اليس كذلك🌇"
     }
     if (time >= 18) {
-     res = "Good Night 🌙"
+     res = "مساء الخير 🌙"
     }
     return res
    }
