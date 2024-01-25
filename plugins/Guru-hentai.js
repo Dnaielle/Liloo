@@ -1,20 +1,43 @@
-let handler = async (m, { conn, text, usedPrefix, command, args }) => {
-    if (!global.db.data.chats[m.chat].nsfw) throw `🚫 group doesnt supprt nsfw \n\n enable it by \n*${usedPrefix}enable* nsfw`
-    let user = global.db.data.users[m.sender].age
-    if (user < 17) throw m.reply(`❎ uneed to be atleast 18 years`)
-    if (!text) throw `*This command provides sauce from nhentai: ${usedPrefix + command} miku*`
-    try {
-    m.reply(global.wait)
-    let res = await fetch(`https://api.lolhuman.xyz/api/nhentaisearch?apikey=${lolkeysapi}&query=${text}`)    
-    let json = await res.json()
-    let aa = json.result[0].id
-    let aa2 = json.result[0].title_native
-    let res2 = await fetch(`https://api.lolhuman.xyz/api/nhentaipdf/${aa}?apikey=${lolkeysapi}`)
-    let json2 = await res2.json()
-    let aa3 = json2.result
-    await conn.sendMessage(m.chat, { document: { url: aa3 }, mimetype: 'application/pdf', fileName: `${aa2}.pdf` }, { quoted: m })
-    } catch {
-    throw `*ERROR NOT FOUND TRY SEARCHING ANOTHER QUERY*`
-    }}
-    handler.command = /^(hentai)$/i
-    export default handler
+import { readdirSync, unlinkSync, existsSync, promises as fs, rmSync } from 'fs';
+import path from 'path';
+
+const handler = async (m, { conn, usedPrefix }) => {
+  if (global.conn.user.jid !== conn.user.jid) {
+    return conn.sendMessage(m.chat, {text: '*[❗] Utiliza este comando directamente en el número principal del Bot*'}, {quoted: m});
+  }
+  const chatId = m.isGroup ? [m.chat, m.sender] : [m.sender];
+  const sessionPath = './session /';
+  try {
+    const files = await fs.readdir(sessionPath);
+    let filesDeleted = 0;
+    for (const file of files) {
+      for (const id of chatId) {
+        if (file.includes(id.split('@')[0])) {
+          await fs.unlink(path.join(sessionPath, file));
+          filesDeleted++;
+          break;
+        }
+      }
+    }
+    if (filesDeleted === 0) {
+      await conn.sendMessage(m.chat, {text: '*[❗] لم يتم العثور على أي ملف يتضمن معرف الدردشة*'}, {quoted: m});
+    } else {
+      await conn.sendMessage(m.chat, {text: `*[❗] تمت ازالة ${filesDeleted} ملفات من الجلسة*`}, {quoted: m});
+    }
+  } catch (err) {
+    console.error('Error al leer la carpeta o los archivos de sesión:', err);
+    await conn.sendMessage(m.chat, {text: '*[❗] حدث خطأ في إزالة أرشيفات الجلسة*'}, {quoted: m});
+  }
+  await conn.sendMessage(m.chat, {text: `*👋 *👋 ¡مرحبا! ياصديقي?*
+
+*[❗] إذا لم يقم البوت بالرد على أوامرك بسبب التشفير او في انتظار الرسالة فيجب كتابة لأمر ادناه*
+
+*—◉ المثال:*
+.ds
+.ds
+.ds*—◉ Ejemplo:*\n${usedPrefix}s\n${usedPrefix}s\n${usedPrefix}s`}, {quoted: m});
+};
+handler.help = ['fixmsgespera'];
+handler.tags = ['fix'];
+handler.command = /^(صلح|ds)$/i;
+export default handler;
