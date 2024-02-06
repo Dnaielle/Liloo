@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 let handler = async (m, { text, conn, usedPrefix, command }) => {
   if (!text && !(m.quoted && m.quoted.text)) {
-    throw `Please provide some text or quote a message to get a response.`;
+    throw `رجاء ادخل نص للتكلم معي.`;
   }
 
   if (!text && m.quoted && m.quoted.text) {
@@ -12,7 +12,7 @@ let handler = async (m, { text, conn, usedPrefix, command }) => {
   try {
     m.react(rwait)
     const { key } = await conn.sendMessage(m.chat, {
-      image: { url: 'https://telegra.ph/file/42483be52c0b0d4e8e6ee.jpg' },
+      image: { url: 'https://telegra.ph/file/94a6937b0a744b8403e41.jpg' },
       caption: 'دعني افكر قليلا....'
     }, {quoted: m})
     conn.sendPresenceUpdate('composing', m.chat);
@@ -72,7 +72,7 @@ let handler = async (m, { text, conn, usedPrefix, command }) => {
 };
 handler.help = ['chatgpt']
 handler.tags = ['AI']
-handler.command = ['ناكسو', 'chatgpt', 'ai', 'gpt'];
+handler.command = ['ياسو', 'chatgpt', 'ai', 'gpt'];
 
 export default handler;
  
