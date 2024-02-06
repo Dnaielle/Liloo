@@ -20,7 +20,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
        
   } catch (error) {
     console.error(error);
-    m.reply('أُووبس!  هناك خطأ ما.  ، ونحن نحاول إصلاحه في أسرع وقت ممكن');
+    m.reply('كيف اساعدك اليوم؟ ');
   }
 }
 handler.help = ['gemini <text>']
