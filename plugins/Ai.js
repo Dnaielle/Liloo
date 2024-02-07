@@ -1,53 +1,28 @@
-import fetch from 'node-fetch';
+import {GoogleGenerativeAI} from '@google/generative-ai'
 import displayLoadingScreen from '../lib/loading.js'
+const genAI = new GoogleGenerativeAI('AIzaSyDJC5a882ruaC4XL6ejY1yhgRkN-JNQKg8');
 
-const endpoint = 'https://v2-guru-indratensei.cloud.okteto.net/perplexity?query=';
 
-let handler = async (m, { text, conn, usedPrefix, command }) => {
+let handler = async (m, { conn, text, args, usedPrefix, command }) => {
   try {
-    if (!text && !(m.quoted && m.quoted.text)) {
-      throw `رجاء ادخل نص للتكلم معي.`;
-    }
-
-    if (!text && m.quoted && m.quoted.text) {
-      text = m.quoted.text;
-    } else if (text && m.quoted && m.quoted.text) {
-      text = `${text} ${m.quoted.text}`;
-      if (m.quoted.text.includes('.aisearch')) {
-        text = text.replace('.aisearch', ''); // 
-      }
-    }
+    if (!text) throw `امم.. ماذا تريد أن تقول?`
+    m.react('🤖')
     await displayLoadingScreen(conn, m.chat)
-    conn.sendPresenceUpdate('composing', m.chat);
-    let emsg = await conn.sendMessage(m.chat, {text: 'Thinking...'})
-    const prompt = encodeURIComponent(text);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-    const response = await fetch(endpoint + prompt);
+    const prompt = text
 
-    if (!response.ok) {
-      throw `خطأ: ${response.status} - ${response.statusText}`;
-    }
-
-    const data = await response.json();
-    const result = data.response.trim(); 
-    await conn.relayMessage(m.chat, {
-        protocolMessage: {
-          key: emsg.key,
-          type: 14,
-          editedMessage: {
-            conversation: result 
-          }
-        }
-      }, {})
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const textt = response.text();
+    m.reply(textt)
   } catch (error) {
-    console.error('Error:', error);
-    m.reply(`An error occurred while processing your request. Please try again later.`);
+    console.error(error);
+    m.reply('أُووبس!  هناك خطأ ما.  ، ونحن نحاول إصلاحه في أسرع وقت ممكن');
   }
-};
-handler.help = ['aisearch']
-handler.tags = ['AI']
-handler.command = ['يوني', 'ai2']; 
+}
+handler.help = ['gemini <text>']
+handler.tags = ['tools']
+handler.command = /^(يوني)$/i
 
-
-export default handler;
- 
+export default handler
