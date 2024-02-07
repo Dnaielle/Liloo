@@ -5,8 +5,7 @@ const genAI = new GoogleGenerativeAI('AIzaSyDJC5a882ruaC4XL6ejY1yhgRkN-JNQKg8');
 
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
   try {
-    if (!text) throw `امم.. ماذا تريد أن تقول?`
-    m.react('🤖')
+    if (!text) throw `عايز اي يا حب`
     await displayLoadingScreen(conn, m.chat)
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
@@ -18,7 +17,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
     m.reply(textt)
   } catch (error) {
     console.error(error);
-    m.reply('أُووبس!  هناك خطأ ما.  ، ونحن نحاول إصلاحه في أسرع وقت ممكن');
+    m.reply('اسف هناك خطا');
   }
 }
 handler.help = ['gemini <text>']
