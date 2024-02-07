@@ -1,50 +1,22 @@
-import fetch from 'node-fetch';
-import displayLoadingScreen from '../lib/loading.js'
-
-const endpoint = 'https://v2-guru-indratensei.cloud.okteto.net/perplexity?query=';
-
-let handler = async (m, { text, conn, usedPrefix, command }) => {
-  try {
-    if (!text && !(m.quoted && m.quoted.text)) {
-      throw `ادخل نص للتكلم معي.`;
-    }
-
-    if (!text && m.quoted && m.quoted.text) {
-      text = m.quoted.text;
-    } else if (text && m.quoted && m.quoted.text) {
-      text = `${text} ${m.quoted.text}`;
-      if (m.quoted.text.includes('.aisearch')) {
-        text = text.replace('.aisearch', ''); // 
-      }
-    }
-    let emsg = await conn.sendMessage(m.chat, {text: 'Thinking...'})
-    const prompt = encodeURIComponent(text);
-
-    const response = await fetch(endpoint + prompt);
-
-    if (!response.ok) {
-      throw `Received an error response from the server: ${response.status} - ${response.statusText}`;
-    }
-
-    const data = await response.json();
-    const result = data.response.trim(); 
-    await conn.relayMessage(m.chat, {
-        protocolMessage: {
-          key: emsg.key,
-          type: 14,
-          editedMessage: {
-            conversation: result 
-          }
-        }
-      }, {})
-  } catch (error) {
-    console.error('Error:', error);
-    m.reply(`An error occurred while processing your request. Please try again later.`);
-  }
-};
-handler.help = ['aisearch']
-handler.tags = ['AI']
-handler.command = ['جين', 'ai2']; 
-
-
-export default handler;
+import axios from "axios"
+let handler = async (m, { args }) => {
+if (!args[0]) throw "*Give a place to search*"
+try {
+const response = axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${args}&units=metric&appid=060a6bcfa19809c2cd4d97a212b19273`)
+const res = await response
+const name = res.data.name
+const Country = res.data.sys.country
+const Weather = res.data.weather[0].description
+const Temperature = res.data.main.temp + "°C"
+const Minimum_Temperature = res.data.main.temp_min + "°C"
+const Maximum_Temperature = res.data.main.temp_max + "°C"
+const Humidity = res.data.main.humidity + "%"
+const Wind = res.data.wind.speed + "km/h"
+const wea = `「 📍 」PLACE: ${name}\n「 🗺️ 」COUNTRY: ${Country}\n「 🌤️ 」VIEW: ${Weather}\n「 🌡️ 」TEMPERATURE: ${Temperature}\n「 💠 」 MINIMUM TEMPERATURE: ${Minimum_Temperature}\n「 📛 」 MAXIMUM TEMPERATURE: ${Maximum_Temperature}\n「 💦 」HUMIDITY: ${Humidity}\n「 🌬️ 」 WINDSPEED: ${Wind}`
+m.reply(wea)
+} catch {
+return "*ERROR*"}}
+handler.help = ['weather *<place>*']
+handler.tags = ['tools']
+handler.command = /^(الطقس|weather)$/i
+export default handler
