@@ -14,26 +14,10 @@ let username = conn.getName(who)
 let math = max - xp 
 let prem = global.prems.includes(who.split`@`[0])
 let sn = createHash('md5').update(who).digest('hex')
-
-  let crxp = exp - min
-  let customBackground  = './Assets/rankbg.jpg'
-  let requiredXpToLevelUp = xp
-  
-const card = await new .Rank()
-  .setAvatar(pp)
-  .setLevel(level)
-  .setCurrentXP(crxp) 
-  .setRequiredXP(requiredXpToLevelUp) 
-  .setProgressBar('#db190b', 'COLOR') // Set progress bar color here
-  .setDiscriminator(who.substring(3, 7))
-  .setCustomStatusColor('#db190b')
-  .setLevelColor('#FFFFFF', '#FFFFFF')
-  .setOverlay('#000000')
-  .setUsername(username)
-  .setBackground('IMAGE', customBackground)
-  .setRank(level, 'LEVEL', false)
-  .renderEmojis(true)
-  .build();
+ 
+let crxp = exp - min
+let customBackground  = './Assets/rankbg.jpg'
+let requiredXpToLevelUp = xp
   
 // • @${who.replace(/@.+/, '')}
 let str = `*💌 الاسم:* ${username}${about ? '\n\n 🎌 *الوصف:* ' + about : ''}
