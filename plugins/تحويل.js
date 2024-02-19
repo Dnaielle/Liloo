@@ -23,7 +23,7 @@ async function handler(m, { conn, args, usedPrefix, command }) {
     هل انت متاكد تريد تحويل *₹${count}* to *@${(who || '').replace(/@s\.whatsapp\.net/g, '')}* ? 
 
 -  لديك *60ثانية* 
-قم بالرد ${petik}نعم${petik} or ${petik}لا${petik}
+قم بالرد ${petik}yes${petik} or ${petik}no${petik}
 `.trim()
    
     
