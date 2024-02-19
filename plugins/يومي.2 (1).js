@@ -10,7 +10,7 @@ let handler = async (m, {conn, isPrems }) => {
 }
 handler.help = ['daily']
 handler.tags = ['economy']
-handler.command = ['يومي2'] 
+handler.command = ['يومي'] 
 
 export default handler
 
