@@ -3,7 +3,7 @@ const handler = async (m, {conn, args, participants}) => {
     return {...value, jid: key};
   });
   const sortedExp = users.map(toNumber('الخبرة')).sort(sort('الخبرة'));
-  const sortedLim = users.map(toNumber('الحد')).sort(sort('الحد'));
+  const sortedcredit = users.map(toNumber('gold')).sort(sort('gold'));
   const sortedLevel = users.map(toNumber('المستوى')).sort(sort('المستوى'));
   const usersExp = sortedExp.map(enumGetKey);
   const usersLim = sortedLim.map(enumGetKey);
@@ -28,7 +28,7 @@ const handler = async (m, {conn, args, participants}) => {
 
 ${sortedExp.slice(0, len).map(({jid, exp}, i) => `${i + 1}. ${participants.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} *${exp} exp*`).join`\n`}
 
-—◉ *في القمة ${len} الماس 💎*
+—◉ *في القمة ${len} ذهب🪙*
 *👤 موقعك:* ${usersLim.indexOf(m.sender) + 1} من ${usersLim.length}
 
 ${sortedLim.slice(0, len).map(({jid, limit}, i) => `${i + 1}. ${participants.some((p) => jid === p.jid) ? `(${conn.getName(jid)}) wa.me/` : '@'}${jid.split`@`[0]} *${limit} الماس*`).join`\n`}
