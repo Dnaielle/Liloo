@@ -13,7 +13,7 @@ let { min, xp, max } = xpRange(user.level, global.multiplier)
 let username = conn.getName(who)
 let math = max - xp 
 let prem = global.prems.includes(who.split`@`[0])
-let sn = createHash('md5').update(who).digest('hex');
+let sn = createHash('md5').update(who).digest('hex')
 
   let crxp = exp - min
   let customBackground  = './Assets/rankbg.jpg'
