@@ -4,7 +4,7 @@ let handler = async (m, { conn }) => {
     let taguser = '@' + m.sender.split("@s.whatsapp.net")[0] 
     let image = 'https://telegra.ph/file/8ed77669c518ee5d4ed92.png'
 
-    conn.sendFile(m.chat, image, 'image.png', `اهلا صديقي ${tagname} تحتاج مساعدة?  اكتب.اوامر`, m)
+    conn.sendFile(m.chat, image, 'image.png', `اهلا صديقي ${tag.user} تحتاج مساعدة?  اكتب.اوامر`, m)
 }
 
 handler.customPrefix = /^(بوت|ياسو)$/i
