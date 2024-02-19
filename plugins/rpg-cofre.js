@@ -45,7 +45,7 @@ global.db.data.users[m.sender].joincount += tok;
 handler.help = ['daily'];
 handler.tags = ['xp'];
 handler.command = ['حظ', 'كوف', 'abrircofre', 'cofreabrir'];
-handler.level = 5;
+handler.level = 0;
 export default handler;
 
 function pickRandom(list) {
