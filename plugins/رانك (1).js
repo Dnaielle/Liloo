@@ -26,19 +26,13 @@ let str = `*💌 الاسم:* ${username}${about ? '\n\n 🎌 *الوصف:* ' + 
 
 *🧰 الخبرة:* ${user.exp}
 
- *💎 الألماس:* ${user.limit}
- 
- *👾 عملات غوجو:* ${user.money}
-
- *🪙ذهب:* ${user.credit}
- 
-*🟢 توكين:* ${user.joincount}
+*🪙ذهب:* ${user.credit}
 
  *🎟️ مميز:* ${user.premiumTime > 0 ? '✅' : (user.isPrems ? '✅' : '❌') || ''}
  
 *_رمز التحقق✔️_* ${sn}
 
-GOJO BOT`
+Yone BOT`
     conn.sendFile(m.chat, pp, 'profil.jpg', str, m, false, { mentions: [who] })
 
 }
