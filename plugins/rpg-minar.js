@@ -7,7 +7,7 @@ const handler = async (m, {conn, isPrems}) => {
 };
 handler.help = ['minar'];
 handler.tags = ['xp'];
-handler.command = ['mi2', 'تعدين2', 'mine'];
+handler.command = ['mi2', 'تعدين', 'mine'];
 handler.fail = null;
 handler.exp = 0;
 export default handler;
