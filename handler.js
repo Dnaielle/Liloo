@@ -840,8 +840,8 @@ global.dfail = (type, m, conn) => {
     ${userTag} هذا الأمر يعمل فقط في *المجموعات*!`,
         private: `*${emoji.private} Private Query*\n
     ${userTag} This command can only be used in *Private Chats*!`,
-        admin: `*${emoji.admin} Admin's Query*\n
-    ${userTag} This command is only for *Group Admins*!`,
+        admin: `*${emoji.admin} مطلوب ادمن*\n
+    ${userTag} هذا الامر فقط لمشرفين لمجموعة*!`,
         botAdmin: `*${emoji.botAdmin} Bot Admin's Query*\n
     ${userTag} يجب جعل البوت *مشرف* للقيام بل امر!`,
         unreg: `*${emoji.unreg} مطلوب التسجيل*\n
