@@ -19,7 +19,7 @@ let sn = createHash('md5').update(who).digest('hex')
   let customBackground  = './Assets/rankbg.jpg'
   let requiredXpToLevelUp = xp
   
-const card = await new Canvacord.Rank()
+const card = await new .Rank()
   .setAvatar(pp)
   .setLevel(level)
   .setCurrentXP(crxp) 
