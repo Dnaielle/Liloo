@@ -5,15 +5,32 @@ let handler = async (m, { conn, usedPrefix, command}) => {
 
 let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
-  let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './Guru.jpg');
-  let user = global.db.data.users[who];
-  let { exp, level, role, credit } = global.db.data.users[who];
-  let { min, xp } = xpRange(user.level, global.multiplier);
-  let username = conn.getName(who);
-  let math = max - xp 
-  let prem = global.prems.includes(who.split`@`[0])
-  let sn = createHash('md5').update(who).digest('hex')
+let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './Guru.jpg')
+let user = global.db.data.users[who]
+let about = (await conn.fetchStatus(who).catch(console.error) || {}).status || ''
+let { name, exp, credit, lastclaim, registered, regTime, age, level, role, wealth, warn } = global.db.data.users[who]
+let { min, xp, max } = xpRange(user.level, global.multiplier)
+let username = conn.getName(who)
+let math = max - xp 
+let prem = global.prems.includes(who.split`@`[0])
+let sn = createHash('md5').update(who).digest('hex')
 
+const card = await new Canvacord.Rank()
+  .setAvatar(pp)
+  .setLevel(level)
+  .setCurrentXP(crxp) 
+  .setRequiredXP(requiredXpToLevelUp) 
+  .setProgressBar('#db190b', 'COLOR') // Set progress bar color here
+  .setDiscriminator(who.substring(3, 7))
+  .setCustomStatusColor('#db190b')
+  .setLevelColor('#FFFFFF', '#FFFFFF')
+  .setOverlay('#000000')
+  .setUsername(username)
+  .setBackground('IMAGE', customBackground)
+  .setRank(level, 'LEVEL', false)
+  .renderEmojis(true)
+  .build();
+  
 // • @${who.replace(/@.+/, '')}
 let str = `*💌 الاسم:* ${username}${about ? '\n\n 🎌 *الوصف:* ' + about : ''}
 
