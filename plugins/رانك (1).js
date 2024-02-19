@@ -1,47 +1,52 @@
-import { createHash } from 'crypto'
-import { canLevelUp, xpRange } from '../lib/levelling.js'
+import { xpRange } from '../lib/levelling.js';
+import Canvacord from 'canvacord';
 
-let handler = async (m, { conn, usedPrefix, command}) => {
+let handler = async (m, { conn }) => {
+  let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
 
-let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-if (!(who in global.db.data.users)) throw `✳️ The user is not found in my database`
-let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './Guru.jpg')
-let user = global.db.data.users[who]
-let about = (await conn.fetchStatus(who).catch(console.error) || {}).status || ''
-let { name, exp, credit, lastclaim, registered, regTime, age, level, role, wealth, warn } = global.db.data.users[who]
-let { min, xp, max } = xpRange(user.level, global.multiplier)
-let username = conn.getName(who)
-let math = max - xp 
-let prem = global.prems.includes(who.split`@`[0])
-let sn = createHash('md5').update(who).digest('hex')
- 
-let crxp = exp - min
-let customBackground  = './Assets/rankbg.jpg'
-let requiredXpToLevelUp = xp
-  
-// • @${who.replace(/@.+/, '')}
-let str = `*💌 الاسم:* ${username}${about ? '\n\n 🎌 *الوصف:* ' + about : ''}
+  if (!(who in global.db.data.users)) throw `✳️ المستخدم غير موجود في قاعدة البيانات`;
 
- *التقدم* (${user.exp - min} / ${xp})\n${math <= 0 ? `Ready for *${usedPrefix}levelup*` : `*انت تحتاج* ${math} *نقطه لرفع مستواك*`}
+  let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './Guru.jpg');
+  let user = global.db.data.users[who];
+  let { exp, level, role } = global.db.data.users[who];
+  let { min, xp } = xpRange(user.level, global.multiplier);
+  let username = conn.getName(who);
 
-*📈 رتبتك:* ${role}
+  let crxp = exp - min
+  let customBackground  = './Assets/rankbg.jpg'
+  let requiredXpToLevelUp = xp
 
-*🎖️ المستوى:* ${user.level}
+  const card = await new Canvacord.Rank()
+  .setAvatar(pp)
+  .setLevel(level)
+  .setCurrentXP(crxp) 
+  .setRequiredXP(requiredXpToLevelUp) 
+  .setProgressBar('#db190b', 'COLOR') // Set progress bar color here
+  .setDiscriminator(who.substring(3, 7))
+  .setCustomStatusColor('#db190b')
+  .setLevelColor('#FFFFFF', '#FFFFFF')
+  .setOverlay('#000000')
+  .setUsername(username)
+  .setBackground('IMAGE', customBackground)
+  .setRank(level, 'LEVEL', false)
+  .renderEmojis(true)
+  .build();
 
-*🧰 الخبرة:* ${user.exp}
+  const str = `🏮 *الاسم:* ${username}\n\n⭐ *الخبرة:* ${crxp} / ${requiredXpToLevelUp}\n\n🏅 *الرتبة:* *${role}*
+${level} *المستوى*
+ ${credit} الذهب
+ *💠استمر في التقدم لتحتل التصنيف الاعلى💠*
+ *🪙البنك. لمعرفة مواردك🪙*`
 
-*🪙ذهب:* ${user.credit}
+  try {
+    conn.sendFile(m.chat, card, 'rank.jpg', str, m, false, { mentions: [who] });
+    m.react('✅');
+  } catch (error) {
+    console.error(error);
+  }}
 
- *🎟️ مميز:* ${user.premiumTime > 0 ? '✅' : (user.isPrems ? '✅' : '❌') || ''}
- 
-*_رمز التحقق✔️_* ${sn}
+handler.help = ['rank'];
+handler.tags = ['economy'];
+handler.command = ['رانك'];
 
-Yone BOT`
-    conn.sendFile(m.chat, pp, 'profil.jpg', str, m, false, { mentions: [who] })
-
-}
-handler.help = ['profile']
-handler.tags = ['group']
-handler.command = ['رانك'] 
-
-export default handler
+export default handler;
