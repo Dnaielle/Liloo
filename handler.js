@@ -571,7 +571,7 @@ export async function participantsUpdate({
                     let welcomeResponse = await fetch(welcomeApiUrl);
                     let welcomeBuffer = await welcomeResponse.buffer();
 
-                    this.sendMessage(id, welcomeApiUrl, 'pp.jpg', text, null, false, {mentions: [user]});
+                    this.sendFile(id, welcomeApiUrl, 'pp.jpg', text, null, false, {mentions: [user]});
                   } catch (error) {
                     console.error(`Error generating welcome image: ${error}`);
                   }
@@ -613,7 +613,7 @@ export async function participantsUpdate({
                     let leaveResponse = await fetch(leaveApiUrl);
                     let leaveBuffer = await leaveResponse.buffer();
 
-                    this.sendMessage(id, leaveApiUrl, 'pp.jpg', text, null, false, {mentions: [user]});
+                    this.sendFile(id, leaveApiUrl, 'pp.jpg', text, null, false, {mentions: [user]});
                   } catch (error) {
                     console.error(`Error generating leave image: ${error}`);
                   }
