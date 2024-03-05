@@ -8,7 +8,7 @@ const handler = async (m, {conn, usedPrefix}) => {
     conn.reply(m.chat, '*👆🏻 ╎ لا يزال هنالك لغز لم تتم الإجابة عليه*', conn.tekateki[id][0]);
     throw false;
   }
-  const tekateki = JSON.parse(fs.readFileSync(`./temp/kra.json`));
+  const tekateki = JSON.parse(fs.readFileSync(`./tmp/kra.json`));
   const json = tekateki[Math.floor(Math.random() * tekateki.length)];
   const _clue = json.response;
   const clue = _clue.replace(/[A-Za-z]/g, '_');
