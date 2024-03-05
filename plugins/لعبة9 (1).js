@@ -28,5 +28,5 @@ delete conn.tekateki[id]
 }, timeout)]}
 handler.help = ['Miku Bot']
 handler.tags = ['Miku Bot']
-handler.command = ['رتب', 'ايموجي', 'فكك', 'انمي', 'خمن', 'كت', 'رياضه', 'دين']
+handler.command = ['رتب', 'ايموجي', 'فكك', 'انمي', 'خمن', 'كت', 'دين']
 export default handler
