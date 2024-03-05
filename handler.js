@@ -553,36 +553,25 @@ export async function participantsUpdate({
                     .replace('@group', await this.getName(id))
                     .replace('@desc', groupMetadata.desc?.toString() || 'error')
                     .replace('@user', '@' + user.split('@')[0]);
-          
+
                   let nthMember = groupMetadata.participants.length;
                   let secondText = `Welcome, ${await this.getName(user)}, our ${nthMember}th member`;
-          
-                  let welcomeApiUrl = `https://welcome.guruapi.tech/welcome-image?username=${encodeURIComponent(
+
+                  let welcomeApiUrl = `https://api.lolhuman.xyz/api/base/welcome?apikey=GataDios&username=${encodeURIComponent(
                     await this.getName(user)
-                  )}&guildName=${encodeURIComponent(await this.getName(id))}&guildIcon=${encodeURIComponent(
+                  )}&groupname=${encodeURIComponent(await this.getName(id))}&img1=${encodeURIComponent(
                     ppgp
-                  )}&memberCount=${encodeURIComponent(
+                  )}&member=${encodeURIComponent(
                     nthMember.toString()
-                  )}&avatar=${encodeURIComponent(pp)}&background=${encodeURIComponent(
+                  )}&img2=${encodeURIComponent(pp)}&background=${encodeURIComponent(
                     'https://cdn.wallpapersafari.com/71/19/7ZfcpT.png'
                   )}`;
-          
+
                   try {
                     let welcomeResponse = await fetch(welcomeApiUrl);
                     let welcomeBuffer = await welcomeResponse.buffer();
-          
-                    this.sendMessage(id, {
-                        text: text,
-                        contextInfo: {
-                        mentionedJid: [user],
-                        externalAdReply: {
-                        title: "ᴛʜᴇ ɢᴜʀᴜ-ʙᴏᴛ",
-                        body: "welcome to Group",
-                        thumbnailUrl: welcomeApiUrl,
-                        sourceUrl: 'https://chat.whatsapp.com/BFfD1C0mTDDDfVdKPkxRAA',
-                        mediaType: 1,
-                        renderLargerThumbnail: true
-                        }}})
+
+                    this.sendMessage(id, welcomeApiUrl, 'pp.jpg', text, null, false, {mentions: [user]});
                   } catch (error) {
                     console.error(`Error generating welcome image: ${error}`);
                   }
@@ -590,7 +579,7 @@ export async function participantsUpdate({
               }
             }
             break;
-          
+
           case 'remove':
             if (chat.welcome) {
               let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata;
@@ -606,36 +595,25 @@ export async function participantsUpdate({
                 } finally {
                   let text = (chat.sBye || this.bye || conn.bye || 'HELLO, @user')
                     .replace('@user', '@' + user.split('@')[0]);
-          
+
                   let nthMember = groupMetadata.participants.length;
                   let secondText = `Goodbye, our ${nthMember}th group member`;
-          
-                  let leaveApiUrl = `https://welcome.guruapi.tech/leave-image?username=${encodeURIComponent(
+
+                  let leaveApiUrl = `https://api.lolhuman.xyz/api/base/leave?apikey=GataDios&username=${encodeURIComponent(
                     await this.getName(user)
-                  )}&guildName=${encodeURIComponent(await this.getName(id))}&guildIcon=${encodeURIComponent(
+                  )}&groupname=${encodeURIComponent(await this.getName(id))}&img1=${encodeURIComponent(
                     ppgp
-                  )}&memberCount=${encodeURIComponent(
+                  )}&member=${encodeURIComponent(
                     nthMember.toString()
-                  )}&avatar=${encodeURIComponent(pp)}&background=${encodeURIComponent(
+                  )}&img2=${encodeURIComponent(pp)}&background=${encodeURIComponent(
                     'https://cdn.wallpapersafari.com/71/19/7ZfcpT.png'
                   )}`;
-          
+
                   try {
                     let leaveResponse = await fetch(leaveApiUrl);
                     let leaveBuffer = await leaveResponse.buffer();
-          
-                    this.sendMessage(id, {
-                        text: text,
-                        contextInfo: {
-                        mentionedJid: [user],
-                        externalAdReply: {
-                        title: "ᴛʜᴇ ɢᴜʀᴜ-ʙᴏᴛ",
-                        body: "Goodbye from  Group",
-                        thumbnailUrl: leaveApiUrl,
-                        sourceUrl: 'https://chat.whatsapp.com/BFfD1C0mTDDDfVdKPkxRAA',
-                        mediaType: 1,
-                        renderLargerThumbnail: true
-                        }}})
+
+                    this.sendMessage(id, leaveApiUrl, 'pp.jpg', text, null, false, {mentions: [user]});
                   } catch (error) {
                     console.error(`Error generating leave image: ${error}`);
                   }
@@ -644,8 +622,8 @@ export async function participantsUpdate({
             }
             break;
             case "promote":
-                const promoteText = (chat.sPromote || this.spromote || conn.spromote || `${emoji.promote} @user *is now admin*`).replace("@user", "@" + participants[0].split("@")[0]);
-                
+                const promoteText = (chat.sPromote || this.spromote || conn.spromote || `@user *is now admin*`).replace("@user", "@" + participants[0].split("@")[0]);
+
                 if (chat.detect) {
                     this.sendMessage(id, {
                         text: promoteText.trim(),
@@ -654,8 +632,8 @@ export async function participantsUpdate({
                 }
                 break;
             case "demote":
-                const demoteText = (chat.sDemote || this.sdemote || conn.sdemote || `${emoji.demote} @user *demoted from admin*`).replace("@user", "@" + participants[0].split("@")[0]);
-                
+                const demoteText = (chat.sDemote || this.sdemote || conn.sdemote || `@user *demoted from admin*`).replace("@user", "@" + participants[0].split("@")[0]);
+
                 if (chat.detect) {
                     this.sendMessage(id, {
                         text: demoteText.trim(),
@@ -665,7 +643,6 @@ export async function participantsUpdate({
                 break;
     }
 }
-
 
 /**
  * Handle groups update
