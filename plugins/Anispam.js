@@ -1,33 +1,21 @@
 
-import { tmpdir } from 'os'
-import path, { join } from 'path'
-import {
-  readdirSync,
-  unlinkSync,
-  rmSync
-} from 'fs'
+let handler = async (m, { conn, usedPrefix }) => {
+    let chats = Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned)
+    let users = Object.entries(global.db.data.users).filter(user => user[1].banned)
+    
+    m.reply(`
+≡ *USERS BANNED*
 
-let handler = async (m, { conn, __dirname, args }) => {
+▢ Total : *${users.length}* 
 
-m.reply(`✅ The folder was cleaned *tmp + session*`)
-m.react(done)
-const tmp = [tmpdir(), join(__dirname, '../tmp')]
-  const filename = []
-  tmp.forEach(dirname => readdirSync(dirname).forEach(file => filename.push(join(dirname, file))))
- 
-  //session bot
-  readdirSync("./session").forEach(file => {
-    if (file !== 'creds.json') {
-        unlinkSync("./session/" + file, { recursive: true, force: true })}}) 
-      
-  return filename.map(file => {
-    unlinkSync(file)
-})
-
+${users ? '\n' + users.map(([jid], i) => `
+${i + 1}. ${conn.getName(jid) == undefined ? 'UNKNOWN' : conn.getName(jid)}
+▢ ${jid}
+`.trim()).join('\n') : ''}
+`.trim())
 }
-handler.help = ['cleartmp']
+handler.help = ['listban']
 handler.tags = ['owner']
-handler.command = /^(c)$/i
-handler.rowner = true
+handler.command = ['banlist', 'listban'] 
 
 export default handler
