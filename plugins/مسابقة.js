@@ -34,6 +34,15 @@ let handler = async (m, { conn, command, usedPrefix }) => {
             conn.reply(m.chat, 'أنت مسجل بالفعل', m);
             throw false;
         }
+        if (command === "حذف-مسابقه") {
+if (!tekateki1.isActive) {
+        m.reply('لـم تـبـدأ الـمـبـاره بـعـد');
+      } else {
+        tekateki1.isActive = false;
+        tekateki1.players = {};
+        m.reply(`تـم حـذف الـلـعـبـه بـنـجـاح`);
+ 
+        }
 
         conn.tekateki1[id][2].push(m.sender);
         conn.reply(m.chat, 'تم التسجيل بنجاح!', m);
