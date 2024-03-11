@@ -23,7 +23,14 @@ let handler = async (m, { conn, command, usedPrefix }) => {
         if (!(id in conn.tekateki1)) {
             conn.reply(m.chat, 'لا يوجد مسابقة قائمة حالياً!', m);
             throw false;
-        }
+        } else if (command === "حذف-مسابقه")
+if (!tekateki1.isActive) {
+        m.reply('لـم تـبـدأ الـمـبـاره بـعـد');
+      } else {
+        tekateki1.isActive = false;
+        tekateki1.players = {};
+        m.reply(`تـم حـذف الـلـعـبـه بـنـجـاح`);
+}
 
         if (conn.tekateki1[id][2].length >= maxPlayers) {
             conn.reply(m.chat, 'اكتمل العدد', m);
@@ -34,21 +41,12 @@ let handler = async (m, { conn, command, usedPrefix }) => {
             conn.reply(m.chat, 'أنت مسجل بالفعل', m);
             throw false;
         }
-        if (command === "حذف-مسابقه") {
-if (!tekateki1.isActive) {
-        m.reply('لـم تـبـدأ الـمـبـاره بـعـد');
-      } else {
-        tekateki1.isActive = false;
-        tekateki1.players = {};
-        m.reply(`تـم حـذف الـلـعـبـه بـنـجـاح`);
- 
-        }
 
         conn.tekateki1[id][2].push(m.sender);
         conn.reply(m.chat, 'تم التسجيل بنجاح!', m);
 
         if (conn.tekateki1[id][2].length >= 2) {
-            let tekateki1 = await (await fetch(`https://raw.githubusercontent.com/Dnaielle/Dani/master/src/game/acertijo.json?token=GHSAT0AAAAAACN6WEVVWRUK3JFAF4I3UI5AZPO5AOA`)).json();
+            let tekateki1 = await (await fetch(`https://raw.githubusercontent.com/حط رابط `)).json();
             let json = tekateki1[Math.floor(Math.random() * tekateki1.length)];
             conn.tekateki1[id][1] = json;
             let playersList = conn.tekateki1[id][2].map((player, i) => `${i + 1} - @${player.split('@')[0]} [${points} نقطة]`).join('\n');
@@ -76,4 +74,4 @@ handler.before = async function (m) {
 
 handler.command = /^(مسابقه|انضمام)$/i;
 
-export default handler; 
+export default handler;
